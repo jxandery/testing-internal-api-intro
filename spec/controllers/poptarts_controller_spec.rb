@@ -27,4 +27,15 @@ describe PoptartsController do
       expect(poptart_response['sprinkles']).to eq('none')
     end
   end
+
+  context '#create' do
+    it 'creates the best poptart' do
+      post :create, format: :json, poptart: {flavor: 'smore', sprinkles: 'black and white'}
+
+      expect(response).to have_http_status(:created)
+      poptart_response = JSON.parse(response.body)
+      expect(poptart_response['flavor']).to eq('smore')
+      expect(poptart_response['sprinkles']).to eq('black and white')
+    end
+  end
 end
