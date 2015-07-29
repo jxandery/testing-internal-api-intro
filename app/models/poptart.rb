@@ -1,3 +1,3 @@
-class Poptart
+class Poptart < ActiveRecord::Base
 
 end
