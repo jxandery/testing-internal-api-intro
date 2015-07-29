@@ -38,4 +38,15 @@ describe PoptartsController do
       expect(poptart_response['sprinkles']).to eq('black and white')
     end
   end
+
+  context '#update' do
+    it 'edits the  poptart' do
+      poptart = Poptart.create!(flavor: 'smore', sprinkles: 'none')
+      put :update, id:poptart.id, format: :json, poptart: {flavor: 'more smore', sprinkles: 'grey'}
+
+      expect(response).to have_http_status(:no_content)
+      expect(poptart.reload.flavor).to eq('more smore')
+      expect(poptart.sprinkles).to eq('grey')
+    end
+  end
 end
