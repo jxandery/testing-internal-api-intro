@@ -15,4 +15,16 @@ describe PoptartsController do
       expect(poptart['sprinkles']).to eq('red')
     end
   end
+
+  context '#show' do
+    it 'returns individual poptart' do
+      poptart = Poptart.create!(flavor: 'cinnamon', sprinkles: 'none')
+      get :show, id: poptart.id, format: :json
+
+      expect(response).to have_http_status(:ok)
+      poptart_response = JSON.parse(response.body)
+      expect(poptart_response['flavor']).to eq('cinnamon')
+      expect(poptart_response['sprinkles']).to eq('none')
+    end
+  end
 end
